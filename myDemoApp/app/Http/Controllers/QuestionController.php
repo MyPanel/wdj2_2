@@ -42,7 +42,8 @@ class QuestionController extends Controller
         //
         $data = $request->all();
         Question::create([
-            'question' => $data['question']
+            'question_title' => $data['question_title'],
+            'question_content' => $data['question_content'],
         ]);
 
         return redirect('questions');
@@ -57,6 +58,9 @@ class QuestionController extends Controller
     public function show(Question $question)
     {
         //
+        $comments = \App\Comment::where('question_id','=',$question->id)->get();
+
+        return view('questions.show', compact('question','comments'));
     }
 
     /**

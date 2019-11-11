@@ -8,7 +8,7 @@
     <ul>
         @forelse($questions as $question)
         <li>
-            <a href="{{ route('comments.create',$question->id) }}" >{{$question->question}}</a>
+            <a href="{{ route('questions.show',$question->id) }}" >{{$question->question_title}}</a>
         </li>
         @empty
         <p>글이 없습니다</p>
