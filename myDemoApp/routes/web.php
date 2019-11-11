@@ -11,6 +11,8 @@
 |
 */
 
+// 테스트용 주석 추가
+
 Route::get('/', function () {
     // return redirect('/login');
     return redirect('/questions');
