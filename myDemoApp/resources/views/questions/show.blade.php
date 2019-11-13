@@ -6,7 +6,11 @@
     <hr/>
     <div>
         <h3>내용 : {{$question->question_content}}</h3>
+        <p>{{$question->user_email}}</p>
     </div>
+    @if ((isset(Auth::user()->email) ? Auth::user()->email : '') == $question->user_email)
+    <button class="btn btn-primary" id="q_update_btn">수정</button>
+    @endif
     @if (Auth::check())
     <form action="{{ route('comments.store') }}" method="POST">
             {!! csrf_field() !!}
