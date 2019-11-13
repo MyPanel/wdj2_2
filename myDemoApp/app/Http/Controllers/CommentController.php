@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -41,11 +42,16 @@ class CommentController extends Controller
         $data = $request->all();
         // var_dump($data);
         // var_dump(\App\Question::find($data['question_id']));
-        \App\Question::find($data['question_id'])->comments()->create([
-            'comment' => $data['comment']
-        ]);
+        $user = Auth::user()->where('email', Auth::user()->email)->first();
+        $question = \App\Question::find($data['question_id']);
+        $comment = new Comment;
+        $comment->comment = $data['comment'];
+        $comment->user()->associate($user);
+        $comment->question()->associate($question);
+        $comment->save();
+
         $comments = Comment::where('question_id','=',$data['question_id'])->get();
-        return view('comments.index', compact('comments'));
+        return redirect(route('questions.show',$data['question_id']));
     }
 
     /**

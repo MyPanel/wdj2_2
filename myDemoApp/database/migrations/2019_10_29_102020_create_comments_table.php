@@ -18,9 +18,12 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('question_id')->index();
             $table->timestamps();
             $table->text('comment');
+            $table->string('user_email');
         
             $table->foreign('question_id')->references('id')->on('questions')
-          		      ->onUpdate('cascade')->onDelete('cascade');
+                        ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_email')->references('email')->on('users')
+                        ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

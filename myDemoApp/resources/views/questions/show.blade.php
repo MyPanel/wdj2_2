@@ -7,6 +7,7 @@
     <div>
         <h3>내용 : {{$question->question_content}}</h3>
     </div>
+    @if (Auth::check())
     <form action="{{ route('comments.store') }}" method="POST">
             {!! csrf_field() !!}
             <input type="hidden" name="question_id" id="question_id" value=" {{ $question['id'] }}">
@@ -21,11 +22,15 @@
                     저장하기
                 </button>
             </div>
-        </form>
-        <ul>
+    </form>
+    @endif
+    <ul>
         @forelse($comments as $comment)
         <li>
             {{$comment->comment}}
+            <p>
+            {{$comment->user_email}}
+            </p>
         </li>
         @empty
         <p>글이 없습니다</p>
