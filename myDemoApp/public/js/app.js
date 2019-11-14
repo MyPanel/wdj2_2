@@ -49336,6 +49336,17 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/css/tailwind.css":
+/*!************************************!*\
+  !*** ./resources/css/tailwind.css ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -49500,14 +49511,15 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/*!******************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/css/tailwind.css ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\back2\myDemoApp\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\back2\myDemoApp\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Administrator\Desktop\wdj2_2\myDemoApp\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\Users\Administrator\Desktop\wdj2_2\myDemoApp\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\Users\Administrator\Desktop\wdj2_2\myDemoApp\resources\css\tailwind.css */"./resources/css/tailwind.css");
 
 
 /***/ })

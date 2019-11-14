@@ -25,3 +25,9 @@ Route::resource('/questions', 'QuestionController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/intro','IntroController@index');
+
+Route::get('/intro/create','IntroController@create');
+
+Route::post('/intro','IntroController@store');
