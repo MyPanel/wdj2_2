@@ -9,6 +9,7 @@
         @forelse($questions as $question)
         <li>
             <a href="{{ route('questions.show',$question->id) }}" >{{$question->question_title}}</a>
+            <p>{{ $question->user_email }}</p>
         </li>
         @empty
         <p>글이 없습니다</p>

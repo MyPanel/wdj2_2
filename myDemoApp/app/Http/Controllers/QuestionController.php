@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
@@ -28,7 +29,10 @@ class QuestionController extends Controller
     public function create()
     {
         //
-        return view('questions.create');
+        if (Auth::check()) {
+            return view('questions.create');
+        }
+        return redirect('questions');
     }
 
     /**
@@ -40,12 +44,17 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         //
-        $data = $request->all();
-        Question::create([
-            'question_title' => $data['question_title'],
-            'question_content' => $data['question_content'],
-        ]);
+        if (Auth::check()) {
+    
+            $data = $request->all();
+            $user = Auth::user()->where('email', Auth::user()->email)->first();
+            $user->questions()->create([
+                'question_title' => $data['question_title'],
+                'question_content' => $data['question_content'],
+            ]);
 
+            return redirect('questions');
+        }
         return redirect('questions');
     }
 
