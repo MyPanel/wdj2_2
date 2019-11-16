@@ -30,10 +30,16 @@ class IntroController extends Controller
         $datas = $request->all();
         $file = $datas['uploadFile']->storeAs('image',"{$datas['intro_name']}.jpg",['disks'=>'public']);
         Intro::create([
-            'name' => $data['intro_name'],
-            'comment' => $data['intro_comment'],
-            'imgUrl'=>$data['url'],
+            'name' => $datas['intro_name'],
+            'comment' => $datas['intro_comment'],
+            'imgUrl'=>"/image/".$datas['intro_name'].'.jpg'
         ]);
         return redirect('intro');
+    }
+
+    public function alter()
+    {
+        $user=auth()->user();
+        return view('intro.update',$user);
     }
 }

@@ -31,3 +31,5 @@ Route::get('/intro','IntroController@index');
 Route::get('/intro/create','IntroController@create');
 
 Route::post('/intro','IntroController@store');
+
+Route::get('/intro/alter', 'IntroController@alter');

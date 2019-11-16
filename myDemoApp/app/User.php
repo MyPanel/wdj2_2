@@ -38,14 +38,6 @@ class User extends Authenticatable
     ];
 
     public function questions(){
-<<<<<<< HEAD
-        return $this->hasMany(Question::class);
-    }
-
-    public function comments(){
-        return $this->hasMany(Comment::class);
-    }
-=======
         return $this->hasMany(Question::class,'user_email', 'email');
     }
 
@@ -53,5 +45,4 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class,'user_email', 'email');
     }
 
->>>>>>> 2b15fd97ce299bc783a96ad441a23c2ce84951b1
 }
