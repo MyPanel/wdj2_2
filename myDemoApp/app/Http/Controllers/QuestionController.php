@@ -90,9 +90,18 @@ class QuestionController extends Controller
      * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(Request $request)
     {
         //
+        $datas = $request->all();
+        $id = $datas['id'];
+        Question::find($id)
+            ->update(['question_title'=> $datas['question_title'],
+                    'question_content'=>$datas['question_content']]);
+                                    
+        return response()->json(['id'=>$id, 
+            'question_title' => $datas['question_title'],
+            'question_content'=> $datas['question_content']]);
     }
 
     /**
@@ -104,5 +113,8 @@ class QuestionController extends Controller
     public function destroy(Question $question)
     {
         //
+        Question::find($question->id)->delete();
+
+        return redirect('questions');
     }
 }

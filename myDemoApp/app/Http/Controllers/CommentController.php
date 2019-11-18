@@ -26,8 +26,17 @@ class CommentController extends Controller
     public function create(Request $request)
     {
         //
-        $question = \App\Question::find(key($request->all()));
-        return view('comments.create', compact('question'));
+        $data = $request->all();
+        $user = Auth::user()->where('email', Auth::user()->email)->first();
+        $question = \App\Question::find($data['question_id']);
+        $comment = new Comment;
+        $comment->comment = $data['comment'];
+        $comment->user()->associate($user);
+        $comment->question()->associate($question);
+        $comment->save();
+        $id = $comment->id;
+
+        return response()->json(['id'=>$id,'user_email' => Auth::user()->email]);
     }
 
     /**
@@ -40,18 +49,16 @@ class CommentController extends Controller
     {
         //
         $data = $request->all();
-        // var_dump($data);
-        // var_dump(\App\Question::find($data['question_id']));
         $user = Auth::user()->where('email', Auth::user()->email)->first();
         $question = \App\Question::find($data['question_id']);
         $comment = new Comment;
         $comment->comment = $data['comment'];
         $comment->user()->associate($user);
         $comment->question()->associate($question);
-        $comment->save();
+        $id = $comment->save()->id;
 
-        $comments = Comment::where('question_id','=',$data['question_id'])->get();
-        return redirect(route('questions.show',$data['question_id']));
+        return null;
+        // return response()->json(['id'=>'1', 'user_email'=> Auth::user()->email]);
     }
 
     /**
@@ -83,9 +90,15 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request)
     {
         //
+        $datas = $request->all();
+        $id = $datas['id'];
+        Comment::find($id)
+            ->update(['comment'=> $datas['comment_comment']]);
+                                    
+        return response()->json(['id'=>$id, 'comment'=>$datas['comment_comment']]);
     }
 
     /**
@@ -94,8 +107,14 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    // public function destroy(Comment $comment)
+    public function destroy(Request $request)
     {
         //
+        $datas = $request->all();
+        $id = $datas['id'];
+        Comment::find($id)->delete();
+
+        return response()->json();
     }
 }
