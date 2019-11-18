@@ -3,7 +3,9 @@
 @section('content')
 <div class='container'>
     <h1>포럼 글 목록</h1>
+    @if(Auth::check())
     <a href="/questions/create">질문생성</a>
+    @endif
     <hr/>
     <ul>
         @forelse($questions as $question)
