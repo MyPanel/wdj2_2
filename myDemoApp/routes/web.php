@@ -19,17 +19,18 @@ Route::get('/', function () {
 });
 
 Route::resource('/comments', 'CommentController');
+Route::patch('/comments/update', 'CommentController@update');
+Route::delete('/comments/delete', 'CommentController@destroy');
+Route::post('/comments/create', 'CommentController@create');
 
 Route::resource('/questions', 'QuestionController');
+Route::patch('/questions/update', 'QuestionController@update');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/intro','IntroController@index');
-
 Route::get('/intro/create','IntroController@create');
-
 Route::post('/intro','IntroController@store');
-
 Route::get('/intro/alter', 'IntroController@alter');
