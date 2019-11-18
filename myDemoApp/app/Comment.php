@@ -13,6 +13,6 @@ class Comment extends Model
         return $this->belongsTo(Question::class);
     }
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_email', 'email');
     }
 }
