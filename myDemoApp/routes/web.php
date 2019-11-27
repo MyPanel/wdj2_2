@@ -25,6 +25,7 @@ Route::post('/comments/create', 'CommentController@create');
 
 Route::resource('/questions', 'QuestionController');
 Route::patch('/questions/update', 'QuestionController@update');
+Route::post('/questions/search', 'QuestionController@search');
 
 Auth::routes();
 
