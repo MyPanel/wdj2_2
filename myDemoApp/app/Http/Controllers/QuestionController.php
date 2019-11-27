@@ -71,6 +71,22 @@ class QuestionController extends Controller
 
         return view('questions.show', compact('question','comments'));
     }
+    
+    public function search(Request $request)
+    {
+        //
+        $datas = $request->all();
+        $search_colunm;
+        if ($datas['search_title'] == '내용') {
+            $search_colunm = 'question_content';
+        }elseif ($datas['search_title'] == '제목') {
+            $search_colunm = 'question_title';
+        }else {
+            $search_colunm = 'user_email';
+        }
+        $questions = Question::where($search_colunm, 'like', '%'.$datas['search_content'].'%')->get();
+        return response()->json(['questions'=>$questions]);
+    }
 
     /**
      * Show the form for editing the specified resource.
