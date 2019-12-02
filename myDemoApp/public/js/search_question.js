@@ -6,10 +6,7 @@ window.addEventListener('load', function() {
         var menu = document.getElementById('search_menu');
         menus = menu.options;
         index = menu.selectedIndex;
-        console.log(menus);
-        console.log(index);
         question_title = menus[index].text;
-        console.log(menus[index].text);
         if (document.getElementById('search_content').value) {
             fetch('/questions/search', {
                 headers: {
@@ -32,18 +29,6 @@ window.addEventListener('load', function() {
                 questions = res.questions;
                 console.log(questions);
                 setSearchData(questions, 1);
-                // questions.forEach(question => {
-                //     question_form = document.createElement('li');
-                //     question_link = document.createElement('a');
-                //     quetsion_title = document.createElement('p');
-                //     question_link_href= "questions/" + question.id;
-                //     question_link.setAttribute('href', question_link_href);
-                //     question_link.textContent = question.question_title;
-                //     quetsion_title.textContent = question.user_email;
-                //     question_form.append(question_link);
-                //     question_form.append(quetsion_title);
-                //     document.getElementById('questions').append(question_form);
-                // });
                 if(document.getElementById('question_page')){
                     question_old_page = document.getElementById('question_page');
                     document.getElementById('question_page').remove();
@@ -55,9 +40,25 @@ window.addEventListener('load', function() {
                 question_page.setAttribute('class', 'text-center');
                 for (let index = 1; index < questions.length / 3 + 1; index++) {
                     question_page_btn = document.createElement('button');
-                    question_page_btn.setAttribute('class', 'btn btn-primary')
+                    question_page_btn.setAttribute('class', 'btn btn-primary search_btn')
+                    if (index == 1) {
+                        question_page_btn.style.color = "#FFFFFF";
+                        question_page_btn.style.backgroundColor = "#3490dc";
+                    }
+                    else
+                    {
+                        question_page_btn.style.backgroundColor = "#FFFFFF";
+                        question_page_btn.style.color = "#3490dc";        
+                    }
                     question_page_btn.textContent = index;
-                    question_page_btn.addEventListener('click', () => {
+                    question_page_btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.search_btn').forEach((btn)=>{
+                            btn.style.backgroundColor = "#FFFFFF";
+                            btn.style.color = "#3490dc";       
+                        })
+                        e.currentTarget.style.color = "#FFFFFF";
+                        e.currentTarget.style.backgroundColor = "#3490dc";
+
                         setSearchData(questions, index);
                     })
                     question_page.append(question_page_btn);
@@ -85,11 +86,19 @@ function setSearchData(questions, page) {
             question_form = document.createElement('li');
             question_link = document.createElement('a');
             quetsion_title = document.createElement('p');
+            question_content = document.createElement('p');
+            question_content.setAttribute('class', 'question_content');
             question_link_href= "questions/" + questions[index].id;
             question_link.setAttribute('href', question_link_href);
             question_link.textContent = questions[index].question_title;
             quetsion_title.textContent = questions[index].user_email;
+            question_content.innerHTML = questions[index].question_content.replace(/\n/gi,"<br>");
+            question_content.style.height = "50px";
+            question_content.style.width = "302px";
+            question_content.style.overflow = "hidden";
+            question_link.style.fontSize = "1.17em";
             question_form.append(question_link);
+            question_form.append(question_content);
             question_form.append(quetsion_title);
             document.getElementById('questions').append(question_form);
         }
