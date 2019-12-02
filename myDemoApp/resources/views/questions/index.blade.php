@@ -3,7 +3,7 @@
 @section('content')
 <div class='container'>
     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-    <h1>포럼 글 목록</h1>
+    <h1>질문 목록</h1>
     @if(Auth::check())
     <a href="/questions/create">질문생성</a>
     @endif
@@ -18,12 +18,24 @@
         <button type="submit" id="serach_button"
             class="btn btn-primary">검색</button>
         <button type="submit" id="cancel_button"
-        class="btn btn-primary">취소</button>
+        class="btn btn-primary">검색 취소</button>
     </div>
     <ul id = "questions">
         @forelse($questions as $question)
         <li>
             <a href="{{ route('questions.show',$question->id) }}" >{{$question->question_title}}</a>
+            <script>
+            document.querySelectorAll('a').forEach(a => {
+                    a.style.fontSize = "1.17em";
+                });
+                document.querySelectorAll('.question_content').forEach(p => {
+                    p.style.height = "50px";
+                    p.style.width = "302px";
+                    p.style.overflow = "hidden";
+                });
+            </script>
+            <p class ="question_content"><?php echo nl2br($question->question_content); ?>
+            </p>
             <p>{{ $question->user_email }}</p>
         </li>
         @empty

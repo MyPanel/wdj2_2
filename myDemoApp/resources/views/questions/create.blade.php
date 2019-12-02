@@ -13,8 +13,7 @@
                     class="form-control">
                 <label for="question">질문 내용</label>
                 <textarea name="question_content" id="question_content"
-                    rows ="10" class="form-control">
-                </textarea>
+                    rows ="10" class="form-control"></textarea>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">
