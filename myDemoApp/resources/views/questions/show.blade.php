@@ -1,5 +1,10 @@
+<style>
+    .inline_form {
+        display : inline;
+    }
+</style>
+<script src="/js/question_comment.js"></script>
 @extends('layouts.app')
-
 @section('content')
 <div class='container'>
     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
@@ -24,13 +29,12 @@
     @if ((isset(Auth::user()->email) ? Auth::user()->email : '') == $question->user_email)
     <button class="btn btn-primary" id="q_update_btn">수정</button>
     <form action="{{ route('questions.destroy',$question->id) }}" method="POST" class="inline_form">
+    
         {{ method_field('DELETE') }}
         {{ csrf_field() }}
         <button class="btn btn-primary">삭제</button>
     </form>
-    <script>
-        document.querySelector('.inline_form').style.display = "inline";
-    </script>
+    
     @endif
     @if (Auth::check())
     <hr/>
@@ -71,5 +75,5 @@
         @endforelse
     </ul>
 </div>
-<script src="/js/question_comment.js"></script>
+
 @stop

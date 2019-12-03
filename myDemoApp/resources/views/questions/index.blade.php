@@ -1,5 +1,15 @@
+<style>
+    .question_content {
+        height : 50px;
+        width : 302px;
+        overflow : hidden;
+    }
+    a {
+        font-size : 1.17em;
+    }
+</style>
+<script src="/js/search_question.js"></script>
 @extends('layouts.app')
-
 @section('content')
 <div class='container'>
     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
@@ -24,16 +34,7 @@
         @forelse($questions as $question)
         <li>
             <a href="{{ route('questions.show',$question->id) }}" >{{$question->question_title}}</a>
-            <script>
-            document.querySelectorAll('a').forEach(a => {
-                    a.style.fontSize = "1.17em";
-                });
-                document.querySelectorAll('.question_content').forEach(p => {
-                    p.style.height = "50px";
-                    p.style.width = "302px";
-                    p.style.overflow = "hidden";
-                });
-            </script>
+            
             <p class ="question_content"><?php echo nl2br($question->question_content); ?>
             </p>
             <p>{{ $question->user_email }}</p>
@@ -49,5 +50,5 @@
         </div>
     @endif
 </div> 
-<script src="/js/search_question.js"></script>
+
 @stop
