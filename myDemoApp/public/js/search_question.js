@@ -7,7 +7,7 @@ window.addEventListener('load', function() {
         menus = menu.options;
         index = menu.selectedIndex;
         question_title = menus[index].text;
-        if (document.getElementById('search_content').value) {
+        if (document.getElementById('search_content').value && document.getElementById('questions').querySelector('li')) {
             fetch('/questions/search', {
                 headers: {
                     'Accept': 'application/json',
@@ -29,6 +29,7 @@ window.addEventListener('load', function() {
                 questions = res.questions;
                 console.log(questions);
                 setSearchData(questions, 1);
+
                 if(document.getElementById('question_page')){
                     question_old_page = document.getElementById('question_page');
                     document.getElementById('question_page').remove();
@@ -38,30 +39,32 @@ window.addEventListener('load', function() {
                 question_page = document.createElement('div');
                 question_page.setAttribute('id', 'searched_question_page');
                 question_page.setAttribute('class', 'text-center');
-                for (let index = 1; index < questions.length / 3 + 1; index++) {
-                    question_page_btn = document.createElement('button');
-                    question_page_btn.setAttribute('class', 'btn btn-primary search_btn')
-                    if (index == 1) {
-                        question_page_btn.style.color = "#FFFFFF";
-                        question_page_btn.style.backgroundColor = "#3490dc";
-                    }
-                    else
-                    {
-                        question_page_btn.style.backgroundColor = "#FFFFFF";
-                        question_page_btn.style.color = "#3490dc";        
-                    }
-                    question_page_btn.textContent = index;
-                    question_page_btn.addEventListener('click', (e) => {
-                        document.querySelectorAll('.search_btn').forEach((btn)=>{
-                            btn.style.backgroundColor = "#FFFFFF";
-                            btn.style.color = "#3490dc";       
+                if (questions.length / 3 + 1 > 2){
+                    for (let index = 1; index < questions.length / 3 + 1; index++) {
+                        question_page_btn = document.createElement('button');
+                        question_page_btn.setAttribute('class', 'btn btn-primary search_btn')
+                        if (index == 1) {
+                            question_page_btn.style.color = "#FFFFFF";
+                            question_page_btn.style.backgroundColor = "#3490dc";
+                        }
+                        else
+                        {
+                            question_page_btn.style.backgroundColor = "#FFFFFF";
+                            question_page_btn.style.color = "#3490dc";        
+                        }
+                        question_page_btn.textContent = index;
+                        question_page_btn.addEventListener('click', (e) => {
+                            document.querySelectorAll('.search_btn').forEach((btn)=>{
+                                btn.style.backgroundColor = "#FFFFFF";
+                                btn.style.color = "#3490dc";       
+                            })
+                            e.currentTarget.style.color = "#FFFFFF";
+                            e.currentTarget.style.backgroundColor = "#3490dc";
+    
+                            setSearchData(questions, index);
                         })
-                        e.currentTarget.style.color = "#FFFFFF";
-                        e.currentTarget.style.backgroundColor = "#3490dc";
-
-                        setSearchData(questions, index);
-                    })
-                    question_page.append(question_page_btn);
+                        question_page.append(question_page_btn);
+                    }
                 }
                 document.getElementById('token').parentElement.append(question_page);
             })
@@ -93,10 +96,10 @@ function setSearchData(questions, page) {
             question_link.textContent = questions[index].question_title;
             quetsion_title.textContent = questions[index].user_email;
             question_content.innerHTML = questions[index].question_content.replace(/\n/gi,"<br>");
-            question_content.style.height = "50px";
-            question_content.style.width = "302px";
-            question_content.style.overflow = "hidden";
-            question_link.style.fontSize = "1.17em";
+            // question_content.style.height = "50px";
+            // question_content.style.width = "302px";
+            // question_content.style.overflow = "hidden";
+            // question_link.style.fontSize = "1.17em";
             question_form.append(question_link);
             question_form.append(question_content);
             question_form.append(quetsion_title);
