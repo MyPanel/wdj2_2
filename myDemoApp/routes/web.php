@@ -1,21 +1,6 @@
 <?php
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-// 테스트용 주석 추가
-
 Route::get('/', function () {
-    // return redirect('/login');
-    return redirect('/questions');
+    return view('main');
 });
 
 Route::resource('/comments', 'CommentController');
@@ -27,11 +12,40 @@ Route::resource('/questions', 'QuestionController');
 Route::patch('/questions/update', 'QuestionController@update');
 Route::post('/questions/search', 'QuestionController@search');
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// 회원가입 화면 띄우기
+Route::get('/auth/register','UsersController@create');
 
-Route::get('/intro','IntroController@index');
-Route::get('/intro/create','IntroController@create');
-Route::post('/intro','IntroController@store');
-Route::get('/intro/alter', 'IntroController@alter');
+// 회원가입 요청
+Route::post('/signup/store','UsersController@store');
+
+// 로그인 화면 띄우기
+Route::get('/login','UsersController@login');
+
+// 로그인 요청
+Route::post('/login','UsersController@check');
+
+// 로그아웃
+Route::get('/logout','UsersController@logout');
+
+// 비밀번호 찾기 화면 띄우기
+Route::get('/auth/send', [
+    'as'=>'password.send',
+    'uses'=>'PasswordsController@getEmail'
+]);
+
+// 비밀번호 찾기 url 메일 보내기
+Route::post('/auth/send', 'PasswordsController@sendEmail');
+
+// 비밀번호 재설정 url 연결
+Route::get('auth/reset/{token}',function($token){
+    return view('users.reset')->with(['id'=>$token]);
+});
+
+// 비밀번호 재설정 요청
+Route::post('auth/reset', ['as'=>'reset.store','uses'=>'PasswordsController@postReset']);
+
+
+
+
+?>

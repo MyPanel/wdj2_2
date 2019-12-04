@@ -4,7 +4,7 @@
     }
 </style>
 <script src="/js/question_comment.js"></script>
-@extends('layouts.app')
+@extends('home')
 @section('content')
 <div class='container'>
     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">

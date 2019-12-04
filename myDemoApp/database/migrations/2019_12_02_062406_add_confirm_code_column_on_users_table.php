@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CraeteIntrosTable extends Migration
+class AddConfirmCodeColumnOnUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CraeteIntrosTable extends Migration
      */
     public function up()
     {
-        Schema::create('intros', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('comment');
-            $table->string('imgUrl');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('confirm_code',60)->nullable();
+            $table->boolean('activated')->default(0);
         });
     }
 
@@ -29,6 +26,6 @@ class CraeteIntrosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('intros');
+        Schema::dropIfExists('users');
     }
 }
