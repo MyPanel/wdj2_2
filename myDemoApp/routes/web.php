@@ -12,6 +12,11 @@ Route::resource('/questions', 'QuestionController');
 Route::patch('/questions/update', 'QuestionController@update');
 Route::post('/questions/search', 'QuestionController@search');
 
+Route::resource('/members', 'MembersController');
+Route::patch('/members/update', 'MembersController@update');
+Route::delete('/members/delete', 'MembersController@destroy');
+Route::post('/members/upload', 'MembersController@upload');
+Route::post('/members/create', 'MembersController@create');
 
 // 회원가입 화면 띄우기
 Route::get('/auth/register','UsersController@create');

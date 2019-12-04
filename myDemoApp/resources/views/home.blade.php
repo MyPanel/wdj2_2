@@ -27,7 +27,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a href="/questions" class="nav-link"><span data-hover="Member">Member</span></a>
+                        <a href="/members" class="nav-link"><span data-hover="Member">Member</span></a>
                     </li>
                     <li class="nav-item">
                         <a href="#project" class="nav-link"><span data-hover="Info">Info</span></a>
