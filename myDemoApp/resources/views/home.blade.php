@@ -30,7 +30,7 @@
                         <a href="/members" class="nav-link"><span data-hover="Member">Member</span></a>
                     </li>
                     <li class="nav-item">
-                        <a href="#project" class="nav-link"><span data-hover="Info">Info</span></a>
+                        <a href="/infos" class="nav-link"><span data-hover="Info">Info</span></a>
                     </li>
                     <li class="nav-item">
                         <a href="/questions" class="nav-link"><span data-hover="Q&A">Q&A</span></a>
