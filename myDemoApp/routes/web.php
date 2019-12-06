@@ -56,7 +56,7 @@ Route::post('/auth/send', 'PasswordsController@sendEmail');
 
 // 비밀번호 재설정 url 연결
 Route::get('auth/reset/{token}',function($token){
-    return view('users.reset')->with(['id'=>$token]);
+    return view('users.reset')->with(['confirm_code'=>$token]);
 });
 
 // 비밀번호 재설정 요청

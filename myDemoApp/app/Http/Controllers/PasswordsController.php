@@ -24,6 +24,7 @@ class PasswordsController extends Controller
         $data=array(
             'id'=>$user->id,
             'name'=>$user->name,
+            'confirmCode'=>$user->confirm_code,
         );
         \Mail::send('emails.articles.password',$data, function ($message) use ($user){
             $message->from('nea64226@gmail.com','Jaeil');
@@ -40,7 +41,7 @@ class PasswordsController extends Controller
             'password'=>'required|confirmed|min:6'
         ]);
         
-        DB::update('update users set password = "'.bcrypt($data['password']).'" where id = '.$data['id']);
+        DB::update('update users set password = "'.bcrypt($data['password']).'" where confirm_code = "'.$data['confirm_code']."\"");
 
         return redirect('/');
     }

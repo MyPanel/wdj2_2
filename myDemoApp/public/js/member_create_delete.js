@@ -1,18 +1,31 @@
 var file;
 var img_div = document.createElement('div');
+// img_div 라는 div 영역 생성
 img_div.setAttribute('class', 'imgdiv');
+// img_div의 속성 class="imgdiv"
+// <div class="imgdiv">
 var new_img = document.createElement('input');
+// new_img라는 input 태그 생성
 new_img.setAttribute('type', 'file');
+// new_img input 태그의 속성 type="file"
 new_img.setAttribute('id', 'img');
+// new_img input 태그의 속성 id="img"
+// <input type="file" id="img">
 new_img.addEventListener("change", handleFiles, false);
+// new_img 태그의 change 리스너 추가 
+// handleFiles함수==>input태그에 저장된 파일 리턴
 function handleFiles(){
     file = this.files[0];
 }
 
 var name_div = document.createElement('div');
+// name_div라는 변수에 div영역 생성
 name_div.setAttribute('class', 'namediv');
+// 속성 class="namediv" 추가
 var new_name = document.createElement('input');
+// new_name 변수에 input 태그 생성
 new_name.setAttribute('type', 'text');
+// 
 new_name.setAttribute('id', 'name');
 new_name.setAttribute('class', 'form-control input-lg');
 
@@ -32,6 +45,9 @@ var deleteMember;
 window.addEventListener('load', function() {
     deleteMember = () => {
         document.querySelectorAll('.member_body').forEach((body) => {
+            // querySelectorAll() => .member_body div 영역의 하위 요소들
+            // 배열 형태로 반환
+            // foreach()
             body.querySelector('.m_delete_btn').addEventListener('click', () => {
                 console.log(body.querySelector('#member_id').value);
                 fetch('/members/delete', {

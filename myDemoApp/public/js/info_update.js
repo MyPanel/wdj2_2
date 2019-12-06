@@ -109,7 +109,7 @@ var place_patch_event = () => {
         .then( (res) => {
             console.log(res);
             old_place_title.textContent = res.title;
-            old_place_body.textConatent = res.body;
+            old_place_body.textContent = res.body;
             document.querySelector('#p_update_btn').removeEventListener('click',place_patch_event);
         })
     })
