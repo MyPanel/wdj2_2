@@ -1,3 +1,4 @@
+// 조원추가 클릭 시 생길 이미지 선택 div와 input
 var file;
 var img_div = document.createElement('div');
 img_div.setAttribute('class', 'imgdiv');
@@ -9,6 +10,7 @@ function handleFiles(){
     file = this.files[0];
 }
 
+// 조원추가 클릭 시 생길 이름 입력 div와 input
 var name_div = document.createElement('div');
 name_div.setAttribute('class', 'namediv');
 var new_name = document.createElement('input');
@@ -16,6 +18,7 @@ new_name.setAttribute('type', 'text');
 new_name.setAttribute('id', 'name');
 new_name.setAttribute('class', 'form-control input-lg');
 
+// 조원추가 클릭 시 생길 현지학기제 소감 div와 textarea
 var content_div = document.createElement('div');
 content_div.setAttribute('class', 'contentdiv');
 var new_content = this.document.createElement('textarea');
@@ -23,17 +26,20 @@ new_content.setAttribute('id', 'content');
 new_content.setAttribute('rows', '10');
 new_content.setAttribute('class', 'form-control input-lg');
 
+//img_div, name_div, content_div 감쌀 div
 var body_div = document.createElement('div');
 body_div.setAttribute('class', 'jumbotron text-center bodydiv');
 
-var a;
-var deleteMember;
+
+var members_body; // 새로운 조원이 추가되기 전 조원들의 member_body를 감싸고 있는 body
+var deleteMember; // 조원삭제 함수 선언
 
 window.addEventListener('load', function() {
+
     deleteMember = () => {
         document.querySelectorAll('.member_body').forEach((body) => {
             body.querySelector('.m_delete_btn').addEventListener('click', () => {
-                console.log(body.querySelector('#member_id').value);
+                //console.log(body.querySelector('#member_id').value);
                 fetch('/members/delete', {
                     headers: {
                         'Accept': 'application/json',
@@ -53,13 +59,15 @@ window.addEventListener('load', function() {
     };
     deleteMember();
 
+    // 조원추가버튼 클릭 시 조원정보입력창 띄우기
     this.document.getElementById('m_create_btn').addEventListener('click', ()=>{
-        var button_textContent = this.document.getElementById('m_create_btn').textContent;
+        var c_button_textContent = this.document.getElementById('m_create_btn').textContent;
         if(!document.querySelector('.imgdiv')){
-            a = document.querySelector('.body').innerHTML;
+            members_body = document.querySelector('.body').innerHTML;
         }
-        this.console.log(a);
+        this.console.log(members_body);
         document.querySelector('.body').innerHTML="";
+
         img_div.append(new_img);
         name_div.append(new_name);
         content_div.append(new_content);
@@ -85,10 +93,10 @@ window.addEventListener('load', function() {
             if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
                 filename = filename.substring(1);
             }
-            alert(filename); // 파일이름 확인 ex) lemon.jpg
+            //alert(filename); // 파일이름 확인 ex) lemon.jpg
         }
 
-        this.document.getElementById('m_create_btn').textContent = (button_textContent == '추가완료') ? '조원추가' : '추가완료';
+        this.document.getElementById('m_create_btn').textContent = (c_button_textContent == '추가완료') ? '조원추가' : '추가완료';
         this.document.getElementById('m_create_btn').addEventListener('click', member_create_event);
     });
 })
@@ -99,6 +107,7 @@ var member_create_event = () => {
     fileData.append('img', file);
     console.log(fileData.getAll('img')); 
 
+    // 파일업로드
     fetch('/members/upload', {
         headers: {
             'X-CSRF-TOKEN': document.querySelector('#token').value,
@@ -110,6 +119,7 @@ var member_create_event = () => {
         console.log(res);
         filename = res;
 
+        // 조원추가
         fetch('/members/create', {
             headers: {
                 'Accept': 'application/json',
@@ -125,8 +135,12 @@ var member_create_event = () => {
         }).then(res => res.json()) // 응답받은 json
         .then((res) => {
             console.log(res);
-            console.log(a);
-            document.querySelector('.body').innerHTML = a;
+            console.log(members_body);
+
+            // 기존 조원들
+            document.querySelector('.body').innerHTML = members_body;
+            
+            // 새로운 조원 member_body
             var member_div = document.createElement('div');
             member_div.setAttribute('class', 'col-lg-3 col-md-6 mb-4 member_body');
 
@@ -135,7 +149,7 @@ var member_create_event = () => {
             input.setAttribute('name', 'member_id');
             input.setAttribute('id', 'member_id');
             input.setAttribute('class', 'm_delete');
-            input.setAttribute('value', res.id); // 수정
+            input.setAttribute('value', res.id);
 
             var card_div = document.createElement('div');
             card_div.setAttribute('class', 'card h-100');

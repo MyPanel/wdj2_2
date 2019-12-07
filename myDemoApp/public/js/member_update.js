@@ -4,7 +4,7 @@ new_img.setAttribute('type', 'file');
 new_img.setAttribute('id', 'img');
 new_img.addEventListener("change", handleFiles, false);
 function handleFiles() {
-    file = this.files[0]; /* now you can work with the file list */
+    file = this.files[0];
 }
 
 var new_name = this.document.createElement('input');
@@ -44,7 +44,7 @@ window.addEventListener('load', function() {
             if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
                 filename = filename.substring(1);
             }
-            alert(filename); // 파일이름 확인 ex) lemon.jpg
+            //alert(filename); // 파일이름 확인 ex) lemon.jpg
         }
         
         change_element = old_img;
@@ -66,7 +66,7 @@ window.addEventListener('load', function() {
     })
 })
     
-var member_patch_event = () => { // 요청
+var member_patch_event = () => {
       
     var fileData = new FormData();
     fileData.append('img', file);
@@ -96,7 +96,7 @@ var member_patch_event = () => { // 요청
                 member_name : new_name.value,
                 member_content : new_content.value,
             })
-        }).then(res => res.json()) // 응답받은 json
+        }).then(res => res.json())
         .then((res) => {
             console.log(res);
             old_name.textContent = res.name;

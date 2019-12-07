@@ -2,13 +2,8 @@
 
 @section('content')
 
-@if($message = Session::get('success'))
-<div class="alert alert-success">
-    <p>{{ $message }}</p>
-</div>
-@endif 
     <header class="jumbotron my-4">
-        <h1 class="display-3">WDJ-2 Welcome!</h1>
+        <h1 class="display-3">WDJ2 Welcome!</h1>
         <p class="lead">어 서 오 세 요</p>
         <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
         @if (Auth::check())
