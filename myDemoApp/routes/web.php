@@ -45,24 +45,10 @@ Route::post('/login','UsersController@check');
 // 로그아웃
 Route::get('/logout','UsersController@logout');
 
-// 비밀번호 찾기 화면 띄우기
-Route::get('/auth/send', [
-    'as'=>'password.send',
-    'uses'=>'PasswordsController@getEmail'
-]);
-
-// 비밀번호 찾기 url 메일 보내기
+Route::get('/auth/send','PasswordsController@getEmail');
 Route::post('/auth/send', 'PasswordsController@sendEmail');
-
-// 비밀번호 재설정 url 연결
 Route::get('auth/reset/{token}',function($token){
     return view('users.reset')->with(['confirm_code'=>$token]);
 });
-
-// 비밀번호 재설정 요청
-Route::post('auth/reset', ['as'=>'reset.store','uses'=>'PasswordsController@postReset']);
-
-
-
-
+Route::post('auth/reset', 'PasswordsController@postReset');
 ?>

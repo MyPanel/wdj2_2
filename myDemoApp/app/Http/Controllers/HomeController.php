@@ -22,7 +22,13 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        return view('home');
+    {   
+        if(Auth::check())
+        {
+            $name=Auth::user()->name;
+            return view('home')->with(['name'=>$name]);
+        } else {
+            return view('home');
+        }
     }
 }

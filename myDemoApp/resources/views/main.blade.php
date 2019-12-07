@@ -20,7 +20,7 @@
 
             <div class="col-lg-5 col-md-12 col-12">
                 <div class="about-image svg">
-                    <img src="image/main_background.jpg" class="img-fluid" alt="svg image">
+                    <img src="images/main_background.jpg" class="img-fluid" alt="svg image">
                 </div>
             </div>
 
