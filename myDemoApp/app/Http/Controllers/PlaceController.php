@@ -54,7 +54,7 @@ class PlaceController extends Controller
             $img = $request->file('new_img');
 
             $new_name = $time_string . '.' . $img->getClientOriginalExtension();
-            $img->move(public_path('image/place'), $new_name);
+            $img->move(public_path('images/place'), $new_name);
             $form_data = array(
                 'place_picture' => $new_name,
                 'title' => $place_datas['new_title'],
@@ -66,7 +66,6 @@ class PlaceController extends Controller
 
         return redirect('infos')->with('success', 'Data Added successfully');
 
-        // sreturn veiw('infos/index');
     }
 
     /**
@@ -111,7 +110,7 @@ class PlaceController extends Controller
             $img = $request->file('place_img');
             
             $new_name = $time_string . '.' . $img->getClientOriginalExtension();
-            $img->move(public_path('image/place'), $new_name);
+            $img->move(public_path('images/place'), $new_name);
         }
         return response()->json($new_name);
     }

@@ -62,7 +62,7 @@
         @foreach($places as $row)
             <div class="col-xs-6 col-sm-3" id="place_cards" >
                 <div class="card h-100" onclick="location.href='{{ route('places.show', $row ->id) }}'" onmouseenter="zoom_in(event)" onmouseleave="zoom_out(event);">
-                    <img class="card-img-top" id="place_imgs" src="/image/place/{{$row->place_picture}}" alt="이미지 없음" >
+                    <img class="card-img-top" id="place_imgs" src="/images/place/{{$row->place_picture}}" alt="이미지 없음" >
                     <div class="card-body">
                     <h4 class="card-title" id="place_titles">{{$row->title}}</h4>
                     <p class="card-text" id="place_bodys">{{$row->body}}</p>

@@ -10,7 +10,7 @@
     </div>
     <br />
     <div class="imgdiv">
-        <img id ="place_img" src="{{ URL::to('/') }}/image/place/{{ $place -> place_picture }}" class="img-thumbnail" alt="이미지 없음"/>
+        <img id ="place_img" src="{{ URL::to('/') }}/images/place/{{ $place -> place_picture }}" class="img-thumbnail" alt="이미지 없음"/>
     </div>
     <div class="namediv">
         <h3 id="place_title">{{ $place -> title }}</h3>
