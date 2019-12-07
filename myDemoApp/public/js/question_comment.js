@@ -16,25 +16,6 @@ var old_question_content;
 
 var no_data_comments_body;
 
-// var comment_body = document.createElement('li');
-// comment_input_info = new HashMap();
-// comment_input_info.put("type", "hidden");
-// comment_input_info.put("class", "comment_id");
-// comment_body.append(document.createElement('input').setAttribute("info", comment_input_info));
-// comment_comment_info = new HashMap();
-// comment_comment_info.put("class", "comment_comment");
-// comment_body.append(document.createElement('h4').setAttribute("info", comment_comment_info));
-// comment_update_btn_info = new HashMap();
-// comment_update_btn_info.put("class", "btn btn-primary c_update_btn");
-// comment_update_btn_info.put("textContent", "수정");
-// comment_body.append(document.createElement('button').setAttribute("info", comment_update_btn_info));
-
-// <input type="hidden" class="comment_id" value="">
-// <h4 class="comment_comment"></h4>
-// <button class="btn btn-primary c_update_btn">수정</button>
-// <button class="btn btn-primary c_delete_btn">삭제</button>
-// <p></p>
-
 
 window.addEventListener('load', function() {
     //화면이 다 띄어지면 뒤에 function 실행
@@ -113,8 +94,7 @@ window.addEventListener('load', function() {
 
             comment_set_events(comment_body);
 
-            if (document.querySelector('#comments').querySelector('li').getAttribute('hidden')){
-                no_data_comments_body =  document.querySelector('#comments').innerHTML;
+            if (document.querySelector('#comments').querySelector('li').getAttributeNames() == "hidden"){
                 document.querySelector('#comments').innerHTML = '';
             }
             document.querySelector('#comments').append(comment_body);
@@ -217,10 +197,15 @@ var comment_delete_event = (comment_body, comment_id) => {
     })
     .then(res => res.json())
     .then((res) => {
-        console.log(res);
+        if ( no_data_comments_body == undefined){
+            no_data_comments_body = document.createElement('li');
+            no_data_comments_body.setAttribute('hidden', 'true');
+            no_data_comments_body.innerHTML = document.querySelector('#comments').querySelector('li').innerHTML;
+        }
         comment_body.remove();
-        if (!document.querySelector('#comments').innerHTML) {
-            document.querySelector('#comments').innerHTML = no_data_comments_body;
+        if (document.querySelector('#comments').querySelector('li') == null) {
+            document.querySelector('#comments').append(no_data_comments_body);
+            document.querySelector('#comments').innerHTML += "<p>댓글이 없습니다</p>"
         }
     })
 }
