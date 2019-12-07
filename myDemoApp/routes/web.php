@@ -18,6 +18,18 @@ Route::delete('/members/delete', 'MembersController@destroy');
 Route::post('/members/upload', 'MembersController@upload');
 Route::post('/members/create', 'MembersController@create');
 
+Route::resource('/infos', 'InfoController');
+Route::patch('/infos/update', 'InfoController@update');
+Route::delete('/infos/delete', 'InfoController@destroy');
+Route::post('/infos/create', 'InfoController@create');
+
+Route::resource('/places', 'PlaceController');
+Route::patch('/places/update', 'PlaceController@update');
+Route::delete('/places/delete', 'PlaceController@destroy');
+Route::patch('/places/create', 'PlaceController@create');
+Route::post('/places/upload', 'PlaceController@upload');
+Route::post('/places/store', 'PlaceController@store');
+
 // 회원가입 화면 띄우기
 Route::get('/auth/register','UsersController@create');
 
@@ -44,7 +56,7 @@ Route::post('/auth/send', 'PasswordsController@sendEmail');
 
 // 비밀번호 재설정 url 연결
 Route::get('auth/reset/{token}',function($token){
-    return view('users.reset')->with(['id'=>$token]);
+    return view('users.reset')->with(['confirm_code'=>$token]);
 });
 
 // 비밀번호 재설정 요청

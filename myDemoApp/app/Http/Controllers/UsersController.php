@@ -18,32 +18,23 @@ class UsersController extends Controller
     }
     public function check(Request $req)
     {
-        // $message=[
-        //     'name.required'=>'이름 입력은 필수입니다.',
-        //     'email.required'=>'이메일 입력은 필수입니다.',
-        // ];
-        // $this->validate($req,[
-        //     'email'=>'email|max:255',
-        //     'password'=>'required|min:6'
-        // ],$message);
-        // $data=$req->only('email','password');
-        // if (Auth::attempt($data)) {
-        //     return redirect('/');
-        // }
-        // return "Fail";
-        // $message=[
-        //     'name.required'=>'이름 입력은 필수입니다.',
-        //     'email.required'=>'이메일 입력은 필수입니다.',
-        // ];
+        // 유효성 검사
+        $message=[
+            'email.required'=>'이메일 입력은 필수입니다.',
+            'password.required'=>'비밀번호 입력은 필수입니다.',
+        ];
         $this->validate($req,[
             'email'=>'required|email|max:255',
             'password'=>'required|min:6'
-        ]);
+        ],$message);
+
+        // 로그인 시도
         if (Auth::attempt(['email' => $req->email, 'password' => $req->password])) {
             # code...
+            // 성공 시
             return redirect('/');
         }
-
+        // 실패 시
         return "Fail";
     }
     public function store(Request $req)
@@ -60,14 +51,15 @@ class UsersController extends Controller
             'password'=>'required|confirmed|min:6'
         ],$message);
 
-        $confirmCode=Str::random(60);
+        $confirm_code=Str::random(15);
 
         $user=\App\User::create([
             'name'=>$req->name,
             'email'=>$req->email,
             'password'=>bcrypt($req->password),
-            'confirm_code'=>$confirmCode
+            'confirm_code'=>$confirm_code,
         ]);
+
         $data=array(
             'name'=>$user->name,
             'email'=>$user->email,
@@ -79,7 +71,7 @@ class UsersController extends Controller
         });
         auth()->login($user);
         return redirect('/');
-    }
+    } 
 
     public function logout()
     {
